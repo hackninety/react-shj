@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { Waves } from 'lucide-react';
 import MapView from './components/MapView';
 import EntityCard from './components/EntityCard';
 import FilterBar from './components/FilterBar';
@@ -10,6 +11,7 @@ import {
 export default function App() {
   const [categories, setCategories] = useState<Set<EntityCategory>>(new Set(ALL_CATEGORIES));
   const [confidence, setConfidence] = useState<Set<LocationConfidence>>(new Set(ALL_CONFIDENCE));
+  const [showRivers, setShowRivers] = useState(false);
   // 支持 ?e=<实体id> 直达分享（如 /?e=qiongqi）
   const [selectedId, setSelectedId] = useState<string | null>(() => {
     const id = new URLSearchParams(window.location.search).get('e');
@@ -42,7 +44,12 @@ export default function App() {
   return (
     <div className="relative h-full w-full overflow-hidden">
       {/* 地图 */}
-      <MapView features={features} selectedId={selectedId} onSelect={setSelectedId} />
+      <MapView
+        features={features}
+        selectedId={selectedId}
+        showRivers={showRivers}
+        onSelect={setSelectedId}
+      />
 
       {/* 顶部悬浮层：标题 + 工具条 */}
       <div className="pointer-events-none absolute inset-x-0 top-0 z-500 flex flex-col gap-2.5 p-3.5">
@@ -61,6 +68,15 @@ export default function App() {
             onToggleConfidence={(c) => setConfidence((s) => toggle(s, c))}
             onSelect={setSelectedId}
           />
+          <button
+            onClick={() => setShowRivers((v) => !v)}
+            className={`pointer-events-auto flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs shadow-md ring-1 ring-(--ink)/10 transition ${
+              showRivers ? 'bg-[#2f7fb0] text-white' : 'bg-white/95 opacity-70 hover:opacity-100'
+            }`}
+            title="经文水系：「X水出焉，东流注于Y」的流向示意线"
+          >
+            <Waves size={13} /> 水系
+          </button>
         </div>
       </div>
 

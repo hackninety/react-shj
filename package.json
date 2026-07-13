@@ -2,7 +2,7 @@
   "name": "react-shj",
   "private": true,
   "version": "0.1.0",
-  "description": "山海经·世界舆图 —— 183 个异兽/神祇/方国落点世界地图，点击览原文、白话与历代古图（数据：shj-ts-lib）",
+  "description": "山海经·世界舆图 —— 226 个异兽/神祇/方国/神木/灵石落点世界地图（附经文水系图层），点击览原文、白话与历代古图（数据：shj-ts-lib）",
   "type": "module",
   "scripts": {
     "dev": "vite",

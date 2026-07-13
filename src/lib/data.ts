@@ -1,15 +1,21 @@
 /** 数据胶水层：一次性取库数据、类别配色、卷名映射 */
 import { getChapters, getCorpusStats, CATEGORY_LABELS, CONFIDENCE_LABELS, DISCLAIMER } from 'shj-ts-lib';
-import type { EntityCategory, EntityFeatureProps, GeoFeature, LocationConfidence } from 'shj-ts-lib';
-import { entitiesToGeoJSON } from 'shj-ts-lib/geo';
+import type {
+  EntityCategory, EntityFeatureProps, GeoFeature, GeoLineFeature, LocationConfidence, RiverFeatureProps,
+} from 'shj-ts-lib';
+import { entitiesToGeoJSON, riversToGeoJSON } from 'shj-ts-lib/geo';
 
 export { CATEGORY_LABELS, CONFIDENCE_LABELS, DISCLAIMER };
 export type { EntityCategory, EntityFeatureProps, LocationConfidence };
 
 export type EntityFeature = GeoFeature<EntityFeatureProps>;
+export type RiverFeature = GeoLineFeature<RiverFeatureProps>;
 
 /** 全量实体要素（应用生命周期内不变，筛选在客户端做） */
 export const ALL_FEATURES: EntityFeature[] = entitiesToGeoJSON().features;
+
+/** 水系流向示意线（方向取自经文「东流注于河」等，长度非实际河道） */
+export const RIVER_FEATURES: RiverFeature[] = riversToGeoJSON().features;
 
 export const STATS = getCorpusStats();
 

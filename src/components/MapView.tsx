@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import L from 'leaflet';
-import { CATEGORY_COLORS, type EntityFeature } from '../lib/data';
+import { CATEGORY_COLORS, RIVER_FEATURES, type EntityFeature } from '../lib/data';
 
 /**
  * 底图配置。后期换「上古舆图」风格：
@@ -13,16 +13,38 @@ const BASEMAP = {
   attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 };
 
+/** 水系图层：流向短线 + 末端点（tooltip 释文「漳水 · 出发鸠之山 · 东流注于河」） */
+function buildRiversLayer(): L.LayerGroup {
+  const layer = L.layerGroup();
+  for (const f of RIVER_FEATURES) {
+    const latlngs = f.geometry.coordinates.map(([lng, lat]) => [lat, lng] as [number, number]);
+    const line = L.polyline(latlngs, {
+      color: '#2f7fb0', weight: 2, opacity: 0.6, dashArray: '1 6', lineCap: 'round',
+    });
+    line.bindTooltip(f.properties.label, { className: 'shj-tooltip', sticky: true });
+    layer.addLayer(line);
+    const [elng, elat] = f.geometry.coordinates[1];
+    layer.addLayer(
+      L.circleMarker([elat, elng], {
+        radius: 2.5, weight: 0, fillColor: '#2f7fb0', fillOpacity: 0.85, interactive: false,
+      }),
+    );
+  }
+  return layer;
+}
+
 interface Props {
   features: EntityFeature[];
   selectedId: string | null;
+  showRivers: boolean;
   onSelect: (id: string) => void;
 }
 
-export default function MapView({ features, selectedId, onSelect }: Props) {
+export default function MapView({ features, selectedId, showRivers, onSelect }: Props) {
   const holderRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
   const layerRef = useRef<L.LayerGroup | null>(null);
+  const riversRef = useRef<L.LayerGroup | null>(null);
   const onSelectRef = useRef(onSelect);
   onSelectRef.current = onSelect;
 
@@ -44,12 +66,23 @@ export default function MapView({ features, selectedId, onSelect }: Props) {
     const layer = L.layerGroup().addTo(map);
     mapRef.current = map;
     layerRef.current = layer;
+    riversRef.current = buildRiversLayer();
     return () => {
       map.remove();
       mapRef.current = null;
       layerRef.current = null;
+      riversRef.current = null;
     };
   }, []);
+
+  // 水系图层开关
+  useEffect(() => {
+    const map = mapRef.current;
+    const rivers = riversRef.current;
+    if (!map || !rivers) return;
+    if (showRivers) rivers.addTo(map);
+    else rivers.remove();
+  }, [showRivers]);
 
   // 打点（筛选或选中变化时重建；183 点量级直接重建足够快）
   useEffect(() => {
