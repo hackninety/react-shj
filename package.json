@@ -1,0 +1,32 @@
+{
+  "name": "react-shj",
+  "private": true,
+  "version": "0.1.0",
+  "description": "山海经·世界舆图 —— 183 个异兽/神祇/方国落点世界地图，点击览原文、白话与历代古图（数据：shj-ts-lib）",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "leaflet": "^1.9.4",
+    "lucide-react": "^0.577.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "shj-ts-lib": "file:../shj-ts-lib"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.2.1",
+    "@types/leaflet": "^1.9.20",
+    "@types/node": "^25.5.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.2.0",
+    "tailwindcss": "^4.2.1",
+    "typescript": "~5.9.3",
+    "vite": "^7.3.1",
+    "vite-plugin-static-copy": "^3.1.4"
+  }
+}

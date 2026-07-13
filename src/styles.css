@@ -1,0 +1,99 @@
+@import 'tailwindcss';
+
+:root {
+  --ink: #2b2118;
+  --paper: #f5efe2;
+  --paper-2: #ede4d0;
+  --seal: #a03a2c;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+/* 原文引文用衬线（宋体系） */
+.font-classic {
+  font-family: 'Songti SC', 'Noto Serif CJK SC', SimSun, serif;
+}
+
+/* ---------- Leaflet marker ---------- */
+.shj-marker {
+  width: 100%;
+  height: 100%;
+  border-radius: 9999px;
+  background: var(--marker-color, #888);
+  border: 2px solid rgba(255, 255, 255, 0.92);
+  box-shadow: 0 1px 4px rgba(43, 33, 24, 0.55);
+  transition: transform 0.12s ease;
+}
+.shj-marker--legendary {
+  opacity: 0.72;
+  border-style: dashed;
+  border-color: rgba(255, 255, 255, 0.75);
+}
+.shj-marker--selected {
+  transform: scale(1.55);
+  border-color: #fff;
+  box-shadow:
+    0 0 0 4px color-mix(in srgb, var(--marker-color) 35%, transparent),
+    0 2px 6px rgba(43, 33, 24, 0.6);
+}
+.leaflet-div-icon.shj-marker-wrap {
+  background: transparent;
+  border: none;
+}
+
+.shj-tooltip {
+  font-family: 'Songti SC', SimSun, serif;
+  font-size: 13px;
+  background: rgba(43, 33, 24, 0.92);
+  color: #f5efe2;
+  border: none;
+  border-radius: 6px;
+  padding: 3px 9px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+.shj-tooltip::before {
+  border-top-color: rgba(43, 33, 24, 0.92);
+}
+
+/* 地图容器铺满 */
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  background: #b8d0dc;
+  font: inherit;
+}
+
+/* 细滚动条 */
+.thin-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+.thin-scroll::-webkit-scrollbar-thumb {
+  background: rgba(43, 33, 24, 0.25);
+  border-radius: 3px;
+}
+
+/* 卡片滑入 */
+@keyframes card-in {
+  from {
+    transform: translateX(24px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+.card-in {
+  animation: card-in 0.22s ease-out;
+}
