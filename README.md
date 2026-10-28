@@ -1,6 +1,6 @@
 # react-shj —— 山海经 · 世界舆图
 
-把 [shj-ts-lib](https://github.com/hackninety/shj-ts-lib)（《山海经》语料库：18 卷经文 / 226 实体 / 188 地望坐标 / 269 条水系 / 251 幅历代古图）渲染成可交互世界地图：
+把 [shj-ts-lib](https://github.com/hackninety/common-ts-lib/tree/main/packages/shj-ts-lib)（《山海经》语料库：18 卷经文 / 226 实体 / 188 地望坐标 / 269 条水系 / 251 幅历代古图）渲染成可交互世界地图：
 
 - **打点**：`entitiesToGeoJSON()` 一次拿到全部实体 Point，按类别配色（异兽/奇鸟/鳞介/蛇虺/龙属/神祇/奇人/方国/神木），神话示意位（legendary）虚线弱化
 - **卡片**：点击图标 → 右侧卡片：历代古图（多版本可切换，带年代与许可出处）+ 经文原文（繁体原句读）+ 白话简介 + 地望考据与置信度
@@ -11,11 +11,11 @@
 ## 运行
 
 ```bash
-npm install   # shj-ts-lib 经 file:../shj-ts-lib 链接（与 D:\WWW 同级布局）
+npm ci        # 按锁文件安装 common-ts-lib Release 中独立的 shj-ts-lib 预构建包
 npm run dev
 ```
 
-> 独立部署时可把依赖换成 `"shj-ts-lib": "github:hackninety/shj-ts-lib"`（安装时自动构建）。
+> 本机与独立部署均使用已锁定的 GitHub Release 压缩包，安装不依赖旁边的库目录，也无需在前端构建语料。
 > 古图静态资源由 vite-plugin-static-copy 从包内 `assets/images` 输出到 `/shj-images`。
 
 ## 换「上古舆图」底图（预留）

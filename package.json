@@ -15,7 +15,7 @@
     "lucide-react": "^0.577.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
-    "shj-ts-lib": "git+https://github.com/hackninety/shj-ts-lib.git"
+    "shj-ts-lib": "https://github.com/hackninety/common-ts-lib/releases/download/shj-ts-lib-v0.1.0/shj-ts-lib-0.1.0.tgz"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.2.1",

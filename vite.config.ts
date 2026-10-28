@@ -14,8 +14,8 @@ export default defineConfig({
     }),
   ],
   optimizeDeps: {
-    // shj-ts-lib 经 file: 链接（Vite 默认不预打包 linked 包），其 dist 使用
-    // JSON import attributes，必须交给 esbuild 预打包内联，浏览器才能直接消费
+    // shj-ts-lib 的预构建 dist 使用 JSON import attributes，交给 esbuild
+    // 预打包内联供浏览器消费；本地 file: 联调时也明确预打包这些入口
     include: [
       'shj-ts-lib',
       'shj-ts-lib/text',
